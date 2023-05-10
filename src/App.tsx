@@ -9,32 +9,32 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 const Box = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   width: 200px;
   height: 200px;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
 const Circle = styled(motion.div)`
-  background-color: "white";
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
+  background-color: white;
+  height: 70px;
+  width: 70px;
   place-self: center;
+  border-radius: 35px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-const boxVars = {
+const boxVariants = {
   start: {
     opacity: 0,
     scale: 0.5,
   },
   end: {
+    scale: 1,
     opacity: 1,
-    scale: 0,
     transition: {
       type: "spring",
       duration: 0.5,
@@ -45,10 +45,10 @@ const boxVars = {
   },
 };
 
-const circleVars = {
+const circleVariants = {
   start: {
     opacity: 0,
-    y: -10,
+    y: 10,
   },
   end: {
     opacity: 1,
@@ -59,14 +59,14 @@ const circleVars = {
 function App() {
   return (
     <Wrapper>
-      {/* 부모 컴포넌트 initial과 animate는 자식에게 상속된다 */}
-      <Box variants={boxVars} initial="start" animate="end">
-        <Circle variants={circleVars} />
-        <Circle variants={circleVars} />
-        <Circle variants={circleVars} />
-        <Circle variants={circleVars} />
+      <Box variants={boxVariants} initial="start" animate="end">
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
       </Box>
     </Wrapper>
   );
 }
+
 export default App;
