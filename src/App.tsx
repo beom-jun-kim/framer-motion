@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const Box = styled(motion.div)`
   width: 200px;
   height: 200px;
@@ -27,7 +28,7 @@ const Circle = styled(motion.div)`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-const boxVariants = {
+const boxVars = {
   start: {
     opacity: 0,
     scale: 0.5,
@@ -45,7 +46,7 @@ const boxVariants = {
   },
 };
 
-const circleVariants = {
+const circleVars = {
   start: {
     opacity: 0,
     y: 10,
@@ -59,14 +60,13 @@ const circleVariants = {
 function App() {
   return (
     <Wrapper>
-      <Box variants={boxVariants} initial="start" animate="end">
-        <Circle variants={circleVariants} />
-        <Circle variants={circleVariants} />
-        <Circle variants={circleVariants} />
-        <Circle variants={circleVariants} />
+      <Box variants={boxVars} initial="start" animate="end">
+        <Circle variants={circleVars} />
+        <Circle variants={circleVars} />
+        <Circle variants={circleVars} />
+        <Circle variants={circleVars} />
       </Box>
     </Wrapper>
   );
 }
-
 export default App;
