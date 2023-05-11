@@ -1,24 +1,18 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
-import { useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
-const Wrapper = styled.div`
-  height: 100vh;
+const Wrapper = styled(motion.div)`
+  height: 300vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const WrapBox = styled.div`
-  width: 500px;
-  height: 500px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  overflow: hidden;
-  display:flex;
-  justify-content: center;
-  align-items:center;
 `;
 
 const Box = styled(motion.div)`
@@ -29,44 +23,34 @@ const Box = styled(motion.div)`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-// const Circle = styled(motion.div)`
-//   background-color: white;
-//   height: 70px;
-//   width: 70px;
-//   place-self: center;
-//   border-radius: 35px;
-//   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
-// `;
-
-const boxVars = {
-  drag: {
-    backgroundColor: "rgba(215,156,222,)",
-    transition: { duration: 0.2, delay: 0 },
-  },
-};
-
 function App() {
-  const wrapBoxRef = useRef<HTMLDivElement>(null);
+
+  // 값을 추적 (리랜더링x)
+  const x = useMotionValue(0);
+
+  // useTransform : 변경할 값 , 인풋출력 , 아웃풋 출력
+  const rotateZ = useTransform(x, [-800, 800], [-360, 360]);
+  const background = useTransform(
+    x,
+    [-800, 800],
+    [
+      "linear-gradient(135deg, rgb(0, 210, 238), rgb(0, 83, 238))",
+      "linear-gradient(135deg, rgb(0, 238, 155), rgb(238, 178, 0))",
+    ]
+  );
+
+  const { scrollYProgress } = useScroll();
+
+  const scale = useTransform(scrollYProgress, [0,1], [1,5]);
+
+  // console.log 확인
+  useMotionValueEvent(scrollYProgress, "change", (lastest) => {
+    console.log("scrollYProgress", lastest);
+  });
+
   return (
-    <Wrapper>
-      <WrapBox ref={wrapBoxRef}>
-        <Box
-          variants={boxVars}
-
-          // 드래그
-          drag
-          // dragConstraints : 제약이 있는 영역 설정
-          dragConstraints={wrapBoxRef}
-
-          // 중앙으로 돌아옴
-          dragSnapToOrigin
-
-          // 중앙에서 당기는 힘 디폴트는 0.5
-          dragElastic={0.7}
-          
-          whileDrag="drag"
-        />
-      </WrapBox>
+    <Wrapper style={{ background }}>
+      <Box style={{ x, rotateZ, scale }} drag="x" dragSnapToOrigin />
     </Wrapper>
   );
 }
