@@ -38,24 +38,26 @@ const Overlay = styled(motion.div)`
 `;
 
 function App() {
-  const [clicked, setClicked] = useState(false);
-  const toggleClick = () => setClicked((prev) => !prev);
+  const [id, setId] = useState<null | string>(null);
+  console.log(id);
   return (
-    <Wrapper onClick={toggleClick}>
+    <Wrapper>
       <Grid>
-        <Box layoutId="box1"/>
-        <Box />
-        <Box />
-        <Box />
+        {["1", "2", "3", "4"].map((i) => (
+
+          // 배열에 담긴 요소들은 layoutId를 가지고 있다
+          <Box key={i} layoutId={i} onClick={() => setId(i)} />
+        ))}
       </Grid>
       <AnimatePresence>
-        {clicked ? (
+        {id ? (
           <Overlay
+            onClick={() => setId(null)}
             initial={{ backgroundColor: "rgba(0,0,0,0)" }}
             animate={{ backgroundColor: "rgba(0,0,0,0.6)" }}
             exit={{ backgroundColor: "rgba(0,0,0,0)" }}
           >
-            <Box layoutId="box1" style={{ width: 400, height: 200 }} />
+            <Box layoutId={id} style={{ width: 400, height: 200 }} />
           </Overlay>
         ) : null}
       </AnimatePresence>
