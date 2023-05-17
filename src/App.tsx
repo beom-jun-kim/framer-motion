@@ -57,6 +57,7 @@ function App() {
             animate={{ backgroundColor: "rgba(0,0,0,0.6)" }}
             exit={{ backgroundColor: "rgba(0,0,0,0)" }}
           >
+            {/* useState에 담긴 id를 layoutId로 선언하여 담을 수 있다 */}
             <Box layoutId={id} style={{ width: 400, height: 200 }} />
           </Overlay>
         ) : null}
