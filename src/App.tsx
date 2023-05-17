@@ -34,8 +34,10 @@ function App() {
   const toggleClick = () => setClicked((prev) => !prev);
   return (
     <Wrapper onClick={toggleClick}>
-      <Box>{!clicked ? <Circle layoutId="circle" style={{borderRadius:50}}/> : null}</Box>
-      <Box>{clicked ? <Circle layoutId="circle" style={{borderRadius:0, scale:2}}/> : null}</Box>
+      <Box />
+      <Box />
+      <Box />
+      <Box />
     </Wrapper>
   );
 }
